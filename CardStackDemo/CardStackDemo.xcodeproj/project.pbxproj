@@ -1,0 +1,535 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		42B7A3311B810297001D0280 /* CardStackDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B7A3301B810297001D0280 /* CardStackDemoTests.swift */; };
+		42B7A3461B810337001D0280 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B7A33B1B810337001D0280 /* AppDelegate.swift */; };
+		42B7A3471B810337001D0280 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42B7A33E1B810337001D0280 /* Images.xcassets */; };
+		42B7A3481B810337001D0280 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42B7A3401B810337001D0280 /* Main.storyboard */; };
+		42B7A34A1B810337001D0280 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42B7A3431B810337001D0280 /* LaunchScreen.xib */; };
+		42B7A3571B8107BF001D0280 /* SFCardStackWrapperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B7A3511B8107BF001D0280 /* SFCardStackWrapperView.m */; };
+		42B7A3581B8107BF001D0280 /* UIViewController+SFCardStackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B7A3541B8107BF001D0280 /* UIViewController+SFCardStackViewController.m */; };
+		42B7A3591B8107BF001D0280 /* SFCardStackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B7A3561B8107BF001D0280 /* SFCardStackViewController.m */; };
+		42B7A35B1B8107D2001D0280 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42B7A35A1B8107D2001D0280 /* QuartzCore.framework */; };
+		42B7A3601B8108F0001D0280 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B7A35F1B8108F0001D0280 /* MainViewController.swift */; };
+		42B7A3621B810921001D0280 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B7A3611B810921001D0280 /* CardViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		42B7A32B1B810297001D0280 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 42B7A30D1B810297001D0280 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 42B7A3141B810297001D0280;
+			remoteInfo = CardStackDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		42B7A3151B810297001D0280 /* CardStackDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardStackDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		42B7A32A1B810297001D0280 /* CardStackDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardStackDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		42B7A32F1B810297001D0280 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		42B7A3301B810297001D0280 /* CardStackDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackDemoTests.swift; sourceTree = "<group>"; };
+		42B7A33B1B810337001D0280 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		42B7A33E1B810337001D0280 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		42B7A3401B810337001D0280 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		42B7A3441B810337001D0280 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		42B7A3451B810337001D0280 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		42B7A3501B8107BF001D0280 /* SFCardStackWrapperView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCardStackWrapperView.h; sourceTree = "<group>"; };
+		42B7A3511B8107BF001D0280 /* SFCardStackWrapperView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCardStackWrapperView.m; sourceTree = "<group>"; };
+		42B7A3531B8107BF001D0280 /* UIViewController+SFCardStackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SFCardStackViewController.h"; sourceTree = "<group>"; };
+		42B7A3541B8107BF001D0280 /* UIViewController+SFCardStackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SFCardStackViewController.m"; sourceTree = "<group>"; };
+		42B7A3551B8107BF001D0280 /* SFCardStackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCardStackViewController.h; sourceTree = "<group>"; };
+		42B7A3561B8107BF001D0280 /* SFCardStackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCardStackViewController.m; sourceTree = "<group>"; };
+		42B7A35A1B8107D2001D0280 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		42B7A35C1B81081D001D0280 /* CardStackDemo-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CardStackDemo-Bridging-Header.h"; sourceTree = "<group>"; };
+		42B7A35F1B8108F0001D0280 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		42B7A3611B810921001D0280 /* CardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		42B7A3121B810297001D0280 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42B7A35B1B8107D2001D0280 /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		42B7A3271B810297001D0280 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		42B7A30C1B810297001D0280 = {
+			isa = PBXGroup;
+			children = (
+				42B7A3171B810297001D0280 /* CardStackDemo */,
+				42B7A32D1B810297001D0280 /* CardStackDemoTests */,
+				42B7A3161B810297001D0280 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		42B7A3161B810297001D0280 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				42B7A3151B810297001D0280 /* CardStackDemo.app */,
+				42B7A32A1B810297001D0280 /* CardStackDemoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		42B7A3171B810297001D0280 /* CardStackDemo */ = {
+			isa = PBXGroup;
+			children = (
+				42B7A34C1B8107B1001D0280 /* Framework */,
+				42B7A33A1B810337001D0280 /* AppDelegate */,
+				42B7A33C1B810337001D0280 /* Assets */,
+				42B7A33F1B810337001D0280 /* MainFlow */,
+				42B7A3421B810337001D0280 /* Other */,
+			);
+			path = CardStackDemo;
+			sourceTree = "<group>";
+		};
+		42B7A32D1B810297001D0280 /* CardStackDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				42B7A3301B810297001D0280 /* CardStackDemoTests.swift */,
+				42B7A32E1B810297001D0280 /* Supporting Files */,
+			);
+			path = CardStackDemoTests;
+			sourceTree = "<group>";
+		};
+		42B7A32E1B810297001D0280 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				42B7A32F1B810297001D0280 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		42B7A33A1B810337001D0280 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				42B7A33B1B810337001D0280 /* AppDelegate.swift */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		42B7A33C1B810337001D0280 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				42B7A33D1B810337001D0280 /* Images */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		42B7A33D1B810337001D0280 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				42B7A33E1B810337001D0280 /* Images.xcassets */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		42B7A33F1B810337001D0280 /* MainFlow */ = {
+			isa = PBXGroup;
+			children = (
+				42B7A3401B810337001D0280 /* Main.storyboard */,
+				42B7A35E1B8108F0001D0280 /* MainViewController */,
+				42B7A35D1B8108F0001D0280 /* CardViewController */,
+			);
+			path = MainFlow;
+			sourceTree = "<group>";
+		};
+		42B7A3421B810337001D0280 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				42B7A3431B810337001D0280 /* LaunchScreen.xib */,
+				42B7A3451B810337001D0280 /* Info.plist */,
+				42B7A35C1B81081D001D0280 /* CardStackDemo-Bridging-Header.h */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		42B7A34C1B8107B1001D0280 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				42B7A35A1B8107D2001D0280 /* QuartzCore.framework */,
+				42B7A34D1B8107BF001D0280 /* SFCardStackViewController */,
+			);
+			name = Framework;
+			sourceTree = "<group>";
+		};
+		42B7A34D1B8107BF001D0280 /* SFCardStackViewController */ = {
+			isa = PBXGroup;
+			children = (
+				42B7A34E1B8107BF001D0280 /* Assets */,
+				42B7A3551B8107BF001D0280 /* SFCardStackViewController.h */,
+				42B7A3561B8107BF001D0280 /* SFCardStackViewController.m */,
+			);
+			name = SFCardStackViewController;
+			path = ../../SFCardStackViewController;
+			sourceTree = "<group>";
+		};
+		42B7A34E1B8107BF001D0280 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				42B7A34F1B8107BF001D0280 /* SFCardStackWrapperView */,
+				42B7A3521B8107BF001D0280 /* UIViewController+SFCardStackViewController */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		42B7A34F1B8107BF001D0280 /* SFCardStackWrapperView */ = {
+			isa = PBXGroup;
+			children = (
+				42B7A3501B8107BF001D0280 /* SFCardStackWrapperView.h */,
+				42B7A3511B8107BF001D0280 /* SFCardStackWrapperView.m */,
+			);
+			path = SFCardStackWrapperView;
+			sourceTree = "<group>";
+		};
+		42B7A3521B8107BF001D0280 /* UIViewController+SFCardStackViewController */ = {
+			isa = PBXGroup;
+			children = (
+				42B7A3531B8107BF001D0280 /* UIViewController+SFCardStackViewController.h */,
+				42B7A3541B8107BF001D0280 /* UIViewController+SFCardStackViewController.m */,
+			);
+			path = "UIViewController+SFCardStackViewController";
+			sourceTree = "<group>";
+		};
+		42B7A35D1B8108F0001D0280 /* CardViewController */ = {
+			isa = PBXGroup;
+			children = (
+				42B7A3611B810921001D0280 /* CardViewController.swift */,
+			);
+			path = CardViewController;
+			sourceTree = "<group>";
+		};
+		42B7A35E1B8108F0001D0280 /* MainViewController */ = {
+			isa = PBXGroup;
+			children = (
+				42B7A35F1B8108F0001D0280 /* MainViewController.swift */,
+			);
+			path = MainViewController;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		42B7A3141B810297001D0280 /* CardStackDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 42B7A3341B810297001D0280 /* Build configuration list for PBXNativeTarget "CardStackDemo" */;
+			buildPhases = (
+				42B7A3111B810297001D0280 /* Sources */,
+				42B7A3121B810297001D0280 /* Frameworks */,
+				42B7A3131B810297001D0280 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CardStackDemo;
+			productName = CardStackDemo;
+			productReference = 42B7A3151B810297001D0280 /* CardStackDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		42B7A3291B810297001D0280 /* CardStackDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 42B7A3371B810297001D0280 /* Build configuration list for PBXNativeTarget "CardStackDemoTests" */;
+			buildPhases = (
+				42B7A3261B810297001D0280 /* Sources */,
+				42B7A3271B810297001D0280 /* Frameworks */,
+				42B7A3281B810297001D0280 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				42B7A32C1B810297001D0280 /* PBXTargetDependency */,
+			);
+			name = CardStackDemoTests;
+			productName = CardStackDemoTests;
+			productReference = 42B7A32A1B810297001D0280 /* CardStackDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		42B7A30D1B810297001D0280 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = JanHalozan;
+				TargetAttributes = {
+					42B7A3141B810297001D0280 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+					42B7A3291B810297001D0280 = {
+						CreatedOnToolsVersion = 6.4;
+						TestTargetID = 42B7A3141B810297001D0280;
+					};
+				};
+			};
+			buildConfigurationList = 42B7A3101B810297001D0280 /* Build configuration list for PBXProject "CardStackDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 42B7A30C1B810297001D0280;
+			productRefGroup = 42B7A3161B810297001D0280 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				42B7A3141B810297001D0280 /* CardStackDemo */,
+				42B7A3291B810297001D0280 /* CardStackDemoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		42B7A3131B810297001D0280 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42B7A3471B810337001D0280 /* Images.xcassets in Resources */,
+				42B7A34A1B810337001D0280 /* LaunchScreen.xib in Resources */,
+				42B7A3481B810337001D0280 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		42B7A3281B810297001D0280 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		42B7A3111B810297001D0280 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42B7A3601B8108F0001D0280 /* MainViewController.swift in Sources */,
+				42B7A3591B8107BF001D0280 /* SFCardStackViewController.m in Sources */,
+				42B7A3621B810921001D0280 /* CardViewController.swift in Sources */,
+				42B7A3571B8107BF001D0280 /* SFCardStackWrapperView.m in Sources */,
+				42B7A3461B810337001D0280 /* AppDelegate.swift in Sources */,
+				42B7A3581B8107BF001D0280 /* UIViewController+SFCardStackViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		42B7A3261B810297001D0280 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42B7A3311B810297001D0280 /* CardStackDemoTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		42B7A32C1B810297001D0280 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 42B7A3141B810297001D0280 /* CardStackDemo */;
+			targetProxy = 42B7A32B1B810297001D0280 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		42B7A3431B810337001D0280 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				42B7A3441B810337001D0280 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		42B7A3321B810297001D0280 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		42B7A3331B810297001D0280 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		42B7A3351B810297001D0280 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = CardStackDemo/Other/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CardStackDemo/Other/CardStackDemo-Bridging-Header.h";
+			};
+			name = Debug;
+		};
+		42B7A3361B810297001D0280 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = CardStackDemo/Other/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CardStackDemo/Other/CardStackDemo-Bridging-Header.h";
+			};
+			name = Release;
+		};
+		42B7A3381B810297001D0280 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = CardStackDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CardStackDemo.app/CardStackDemo";
+			};
+			name = Debug;
+		};
+		42B7A3391B810297001D0280 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = CardStackDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CardStackDemo.app/CardStackDemo";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		42B7A3101B810297001D0280 /* Build configuration list for PBXProject "CardStackDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				42B7A3321B810297001D0280 /* Debug */,
+				42B7A3331B810297001D0280 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		42B7A3341B810297001D0280 /* Build configuration list for PBXNativeTarget "CardStackDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				42B7A3351B810297001D0280 /* Debug */,
+				42B7A3361B810297001D0280 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		42B7A3371B810297001D0280 /* Build configuration list for PBXNativeTarget "CardStackDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				42B7A3381B810297001D0280 /* Debug */,
+				42B7A3391B810297001D0280 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 42B7A30D1B810297001D0280 /* Project object */;
+}
