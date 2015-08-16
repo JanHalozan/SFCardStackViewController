@@ -23,7 +23,7 @@ Usage is really simple. Here's a few lines on how to present the card stack view
 
 ObjC:
 
-```
+```objc
 UIViewController *viewController = [YourFancyContentViewController new];
 SFCardStackViewController *cardStackViewController = [[SFCardStackViewController alloc] initWithRootViewController:viewController];
     
@@ -32,7 +32,7 @@ SFCardStackViewController *cardStackViewController = [[SFCardStackViewController
 
 Or the Swift counterpart:
 
-```
+```swift
 let viewController = YourFancyContentViewController()
 let cardStackViewController = SFCardStackViewController(rootViewController: viewController)
 
@@ -41,13 +41,13 @@ cardStackViewController.present()
 
 Adding a new card is equally simple:
 
-```
+```objc
 UIViewController *viewController = [YourFancyContentViewController new];
 
 [self.cardStackViewController pushViewController:viewController animated:YES];
 ```
 
-```
+```swift
 let viewController = CardViewController()
 
 self.cardStackViewController.pushViewController(viewController, animated: true)
@@ -55,11 +55,11 @@ self.cardStackViewController.pushViewController(viewController, animated: true)
 
 The view controller will take care of dismissing itself once all view controllers have dissappeared from the stack. Or if you want to pop a view controller manually you can use:
 
-```
+```objc
 [self.cardStackViewController popViewController];
 ```
 
-```
+```swift
 self.cardStackViewController.popViewController()
 ```
 
