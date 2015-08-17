@@ -11,6 +11,8 @@
 
 @interface SFCardStackViewController : UIViewController
 
+@property (nonatomic, assign) CGRect cardFrame;
+
 - (instancetype)initWithRootViewController:(UIViewController *)rootViewController;
 
 - (void)present;

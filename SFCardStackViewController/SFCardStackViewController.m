@@ -68,10 +68,10 @@
 - (void)present
 {
     [self.window makeKeyAndVisible];
-    
+
     [self pushViewController:self.rootViewController animated:YES];
 //    self.rootViewController = nil;
-    
+
     [UIView animateWithDuration:0.25f animations:^{
         self.view.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.4f];
     }];
@@ -80,17 +80,17 @@
 - (void)dismiss
 {
     __weak typeof(self) weakSelf = self;
-    
+
     void (^finishBlock)() = ^{
         [weakSelf.animator removeAllBehaviors];
         [weakSelf.previousKeyWindow makeKeyAndVisible];
         weakSelf.window = nil;
     };
-    
+
     if (self.wrapperViews.count > 0)
     {
         [self.animator removeAllBehaviors];
-        
+
         __weak SFCardStackWrapperView *rootWrapper = [self.wrapperViews firstObject];
         UIGravityBehavior *behaviour = [[UIGravityBehavior alloc] initWithItems:self.wrapperViews];
         behaviour.magnitude = 7.5f;
@@ -98,7 +98,7 @@
             if (!CGRectIntersectsRect(weakSelf.view.bounds, rootWrapper.frame))
                 finishBlock();
         };
-        
+
         [self.animator addBehavior:behaviour];
     }
     else
@@ -114,7 +114,7 @@
         NSLog(@"Unable to push a view controller while a presentation is already in progress.");
         return;
     }
-    
+
     [viewController willMoveToParentViewController:self];
     [self addChildViewController:viewController];
     __weak typeof(self) weakSelf = self;
@@ -124,32 +124,33 @@
     wrapper.dismissHandler = ^{
         [weakSelf popViewController];
     };
-    
+
     [self.view addSubview:wrapper];
-    
+
     [self.animator removeAllBehaviors];
-    
+
     if (animated)
     {
-        UISnapBehavior *behaviour = [[UISnapBehavior alloc] initWithItem:wrapper snapToPoint:self.view.center];
+        const CGPoint snapPoint = CGPointMake(CGRectGetMidX(self.cardFrame), CGRectGetMidY(self.cardFrame));
+        UISnapBehavior *behaviour = [[UISnapBehavior alloc] initWithItem:wrapper snapToPoint:snapPoint];
         behaviour.damping = 1.0f;
         behaviour.action = ^{
-            if (CGPointEqualToPoint(wrapper.center, self.view.center))
+            if (CGPointEqualToPoint(wrapper.center, snapPoint))
             {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.animator removeAllBehaviors];
                 });
             }
         };
-        
+
         [self.animator addBehavior:behaviour];
-        
+
         UIDynamicItemBehavior *resistance = [[UIDynamicItemBehavior alloc] initWithItems:@[wrapper]];
         resistance.resistance = 50.0f;
-        
+
         [behaviour addChildBehavior:resistance];
     }
-    
+
     NSUInteger i = 0;
     for (SFCardStackWrapperView *previousWrapper in self.wrapperViews.reverseObjectEnumerator)
     {
@@ -159,7 +160,7 @@
             {
                 CATransform3D transform = CATransform3DConcat(CATransform3DMakeTranslation(0.0f, -25.0f, 0.0f), CATransform3DMakeScale(0.95f, 0.95f, 1.0f));
                 CABasicAnimation *animation = [self cardAnimationWithStartTransform:CATransform3DIdentity endTransform:transform duration:0.25f easingFunctionName:kCAMediaTimingFunctionEaseOut];
-                
+
                 [previousWrapper.layer addAnimation:animation forKey:@"animation"];
                 previousWrapper.layer.transform = transform;
             }
@@ -168,7 +169,7 @@
             {
                 CATransform3D transform = CATransform3DConcat(CATransform3DMakeTranslation(0.0f, -47.5f, 0.0f), CATransform3DMakeScale(0.9f, 0.9f, 1.0f));
                 CABasicAnimation *animation = [self cardAnimationWithStartTransform:previousWrapper.layer.transform endTransform:transform duration:0.25f easingFunctionName:kCAMediaTimingFunctionEaseOut];
-                
+
                 [previousWrapper.layer addAnimation:animation forKey:@"animation"];
                 previousWrapper.layer.transform = transform;
             }
@@ -179,23 +180,23 @@
             }
                 break;
         }
-        
+
         ++i;
     }
-    
+
     [self.wrapperViews addObject:wrapper];
-    
+
     [viewController didMoveToParentViewController:self];
 }
 
 - (void)popViewControllerWithVelocity:(CGPoint)velocity andMagnitude:(CGFloat)magnitude angularVelocity:(CGFloat)angularVelocity
 {
     [self.animator removeAllBehaviors];
-    
+
     SFCardStackWrapperView *wrapperView = [self.wrapperViews lastObject];
     __weak SFCardStackWrapperView *weakWrapper = wrapperView;
     __weak typeof(self) weakSelf = self;
-    
+
     void (^finishBlock)() = ^{
         if (weakSelf.wrapperViews.count - 1 == 0)
         {
@@ -203,16 +204,16 @@
                 weakSelf.view.backgroundColor = [UIColor clearColor];
             } completion:nil];
         }
-        
+
         if (!CGRectIntersectsRect(weakSelf.view.bounds, weakWrapper.frame))
         {
             dispatch_async(dispatch_get_main_queue(), ^{ //Otherwise the animator wont remove the behaviour which called this block
                 [weakSelf.animator removeAllBehaviors];
             });
-            
+
             [weakWrapper removeFromSuperview];
             [weakSelf.wrapperViews removeLastObject];
-            
+
             if (weakSelf.wrapperViews.count > 0)
             {
                 NSUInteger i = 0;
@@ -223,7 +224,7 @@
                         case 0:
                         {
                             CABasicAnimation *animation = [self cardAnimationWithStartTransform:previousWrapper.layer.transform endTransform:CATransform3DIdentity duration:0.25f easingFunctionName:kCAMediaTimingFunctionEaseIn];
-                            
+
                             [previousWrapper.layer addAnimation:animation forKey:@"animation"];
                             previousWrapper.layer.transform = CATransform3DIdentity;
                         }
@@ -231,10 +232,10 @@
                         case 1:
                         {
                             previousWrapper.hidden = NO;
-                            
+
                             CATransform3D transform = CATransform3DConcat(CATransform3DMakeTranslation(0.0f, -25.0f, 0.0f), CATransform3DMakeScale(0.95f, 0.95f, 1.0f));
                             CABasicAnimation *animation = [self cardAnimationWithStartTransform:previousWrapper.layer.transform endTransform:transform duration:0.25f easingFunctionName:kCAMediaTimingFunctionEaseIn];
-                            
+
                             [previousWrapper.layer addAnimation:animation forKey:@"animation"];
                             previousWrapper.layer.transform = transform;
                         }
@@ -242,7 +243,7 @@
                         default:
                             break;
                     }
-                    
+
                     ++i;
                 }
             }
@@ -260,7 +261,7 @@
         behaviour.action = ^{
             finishBlock();
         };
-        
+
         [self.animator addBehavior:behaviour];
     }
     else
@@ -272,14 +273,14 @@
         behaviour.action = ^{
             finishBlock();
         };
-        
+
         [self.animator addBehavior:behaviour];
-        
+
         UIDynamicItemBehavior *spinBehaviour = [[UIDynamicItemBehavior alloc] initWithItems:items];
         spinBehaviour.friction = 0.2f;
         spinBehaviour.allowsRotation = YES;
         [spinBehaviour addAngularVelocity:angularVelocity forItem:wrapperView];
-        
+
         [self.animator addBehavior:spinBehaviour];
     }
 }
@@ -294,35 +295,35 @@
     SFCardStackWrapperView *wrapperView = [self.wrapperViews lastObject];
     const CGPoint location = [sender locationInView:self.view];
     const CGPoint wrapperLocation = [sender locationInView:wrapperView];
-    
+
     static CFAbsoluteTime lastTime;
     static CGFloat lastAngle;
     static CGFloat angularVelocity;
-    
+
     switch (sender.state)
     {
         case UIGestureRecognizerStateBegan:
         {
             SFCardStackWrapperView *wrapper = [self.wrapperViews lastObject];
-            
+
             if ([self.view hitTest:location withEvent:nil] != wrapper)
             {
                 sender.enabled = NO;
                 sender.enabled = YES;
                 return;
             }
-            
+
             [self.animator removeAllBehaviors];
             UIOffset centerOffset = UIOffsetMake(wrapperLocation.x - CGRectGetMidX(wrapperView.bounds), wrapperLocation.y - CGRectGetMidY(wrapperView.bounds));
             UIAttachmentBehavior *behavior = [[UIAttachmentBehavior alloc] initWithItem:wrapperView offsetFromCenter:centerOffset attachedToAnchor:location];
-            
+
             lastTime = CFAbsoluteTimeGetCurrent();
             lastAngle = atan2(wrapper.transform.b, wrapper.transform.a);
-            
+
             behavior.action = ^{
                 const CFAbsoluteTime time = CFAbsoluteTimeGetCurrent();
                 const CGFloat angle = atan2(wrapper.transform.b, wrapper.transform.a);
-                
+
                 if (time > lastTime)
                 {
                     angularVelocity = (angle - lastAngle) / (time - lastTime);
@@ -330,7 +331,7 @@
                     lastAngle = angle;
                 }
             };
-            
+
             [self.animator addBehavior:behavior];
         }
             break;
@@ -343,24 +344,25 @@
         case UIGestureRecognizerStateEnded:
         {
             [self.animator removeAllBehaviors];
-            
+
             const CGPoint velocity = [sender velocityInView:self.view];
             const CGFloat magnitude = sqrtf((velocity.x * velocity.x) + (velocity.y * velocity.y));
-            
+
             if (magnitude > 1000.0f)
             {
                 [self popViewControllerWithVelocity:velocity andMagnitude:magnitude angularVelocity:angularVelocity];
             }
             else
             {
-                UISnapBehavior *behaviour = [[UISnapBehavior alloc] initWithItem:wrapperView snapToPoint:self.view.center];
+                const CGPoint snapPoint = CGPointMake(CGRectGetMidX(self.cardFrame), CGRectGetMidY(self.cardFrame));
+                UISnapBehavior *behaviour = [[UISnapBehavior alloc] initWithItem:wrapperView snapToPoint:snapPoint];
                 behaviour.damping = 1.0f;
-                
+
                 [self.animator addBehavior:behaviour];
-                
+
                 UIDynamicItemBehavior *resistance = [[UIDynamicItemBehavior alloc] initWithItems:@[wrapperView]];
                 resistance.resistance = 50.0f;
-                
+
                 [self.animator addBehavior:resistance];
             }
         }
@@ -383,7 +385,7 @@
     transformAnimation.toValue = [NSValue valueWithCATransform3D:end];
     transformAnimation.timingFunction = [CAMediaTimingFunction functionWithName:name];
     transformAnimation.duration = duration;
-    
+
     return transformAnimation;
 }
 
@@ -420,7 +422,7 @@
         _window.windowLevel = self.previousKeyWindow.windowLevel + 1;
         _window.rootViewController = self;
     }
-    
+
     return _window;
 }
 
@@ -429,9 +431,11 @@
     if (CGRectIsEmpty(_cardFrame))
     {
         const CGRect screenBounds = [[UIScreen mainScreen] bounds];
-        _cardFrame = CGRectInset(screenBounds, 13.0f, 33.0f);
+        _cardFrame = CGRectInset(screenBounds, 13.0f, 0.0f);
+        _cardFrame.origin.y = 30.0f;
+        _cardFrame.size.height = CGRectGetHeight(screenBounds) - 70.0f;
     }
-    
+
     return _cardFrame;
 }
 
@@ -439,7 +443,7 @@
 {
     if (!_wrapperViews)
         _wrapperViews = [NSMutableArray array];
-    
+
     return _wrapperViews;
 }
 
