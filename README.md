@@ -1,9 +1,9 @@
 # SFCardStackViewController
-A way for presenting view controller inside neat little cards.  
+A way for presenting view controllers inside neat little cards.  
 
 ##How it works
 
-Below there is a demo of `SFCardStackViewController` in action. It still needs some polish but for now it gets the job done.
+Below there is a demo of `SFCardStackViewController` in action. It still needs some polish but for now it gets the job done. Stay tuned.
 
 ![image](http://i.imgur.com/hE6nD5s.gif)
 
@@ -24,7 +24,7 @@ ObjC:
 ```objc
 UIViewController *viewController = [YourFancyContentViewController new];
 SFCardStackViewController *cardStackViewController = [[SFCardStackViewController alloc] initWithRootViewController:viewController];
-    
+
 [cardStackViewController present];
 ```
 
@@ -46,7 +46,7 @@ UIViewController *viewController = [YourFancyContentViewController new];
 ```
 
 ```swift
-let viewController = CardViewController()
+let viewController = YourFancyContentViewController()
 
 self.cardStackViewController.pushViewController(viewController, animated: true)
 ```
@@ -59,6 +59,16 @@ The view controller will take care of dismissing itself once all view controller
 
 ```swift
 self.cardStackViewController.popViewController()
+```
+
+Or to dismiss all view controllers at once:
+
+```objc
+[self.cardStackViewController dismiss];
+```
+
+```swift
+self.cardStackViewController.dismiss()
 ```
 
 ##Contribution
