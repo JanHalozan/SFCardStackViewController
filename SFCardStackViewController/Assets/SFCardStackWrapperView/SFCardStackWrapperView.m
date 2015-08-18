@@ -182,8 +182,14 @@ CGFloat headerHeight = 67.5f;
 
 - (void)dealloc
 {
+    [self.viewController willMoveToParentViewController:nil];
     [self.viewController removeObserver:self forKeyPath:@"title"];
+    [self.viewController.view removeFromSuperview];
+    [self.viewController removeFromParentViewController];
+    [self.viewController didMoveToParentViewController:nil];
+
     _viewController = nil;
 }
+
 
 @end
