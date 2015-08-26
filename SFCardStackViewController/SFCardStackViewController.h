@@ -12,6 +12,7 @@
 @interface SFCardStackViewController : UIViewController
 
 @property (nonatomic, assign) CGRect cardFrame;
+@property (nonatomic, strong) UIColor *backgroundColor;
 
 - (instancetype)initWithRootViewController:(UIViewController *)rootViewController;
 

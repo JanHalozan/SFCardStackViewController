@@ -11,6 +11,9 @@
 #import "SFCardStackWrapperView.h"
 
 @interface SFCardStackViewController()
+{
+    UIColor *_backgroundColor;
+}
 
 @property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, strong) UIWindow *previousKeyWindow;
@@ -20,8 +23,6 @@
 @property (nonatomic, strong) NSMutableArray *wrapperViews;
 
 @property (nonatomic, strong) UIDynamicAnimator *animator;
-
-@property (nonatomic, assign) CGRect cardFrame;
 
 - (void)popViewControllerWithVelocity:(CGPoint)velocity andMagnitude:(CGFloat)magnitude angularVelocity:(CGFloat)angularVelocity;
 
@@ -33,6 +34,8 @@
 @end
 
 @implementation SFCardStackViewController
+
+@synthesize backgroundColor = _backgroundColor;
 
 - (instancetype)init
 {
@@ -73,7 +76,7 @@
 //    self.rootViewController = nil;
 
     [UIView animateWithDuration:0.25f animations:^{
-        self.view.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.4f];
+        self.view.backgroundColor = self.backgroundColor;
     }];
 }
 
@@ -357,6 +360,14 @@
                 const CGPoint snapPoint = CGPointMake(CGRectGetMidX(self.cardFrame), CGRectGetMidY(self.cardFrame));
                 UISnapBehavior *behaviour = [[UISnapBehavior alloc] initWithItem:wrapperView snapToPoint:snapPoint];
                 behaviour.damping = 1.0f;
+                behaviour.action = ^{
+                    if (CGPointEqualToPoint(wrapperView.center, snapPoint))
+                    {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.animator removeAllBehaviors];
+                        });
+                    }
+                };
 
                 [self.animator addBehavior:behaviour];
 
@@ -437,6 +448,26 @@
     }
 
     return _cardFrame;
+}
+
+- (UIColor *)backgroundColor
+{
+    if (!_backgroundColor)
+        _backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.4f];
+
+    return _backgroundColor;
+}
+
+- (void)setBackgroundColor:(UIColor *)backgroundColor
+{
+    _backgroundColor = backgroundColor;
+
+    if (self.wrapperViews.count > 0)
+    {
+        [UIView animateWithDuration:0.25f animations:^{
+            self.view.backgroundColor = self.backgroundColor;
+        }];
+    }
 }
 
 - (NSMutableArray *)wrapperViews
