@@ -11,7 +11,7 @@
 @interface SFCardStackWrapperView : UIView
 
 @property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, strong) UIButton *doneButton;
+@property (nonatomic, strong, readonly) UIButton *doneButton;
 @property (nonatomic, strong) UIViewController *viewController;
 
 @property (nonatomic, copy) void (^dismissHandler)();
@@ -22,5 +22,6 @@
 - (instancetype)initWithFrame:(CGRect)frame viewController:(UIViewController *)viewController;
 
 @property (nonatomic, strong) UIColor *tintColor;
+@property (nonatomic, strong) UIColor *titleColor;
 
 @end

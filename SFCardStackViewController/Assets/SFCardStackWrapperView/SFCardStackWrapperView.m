@@ -11,6 +11,10 @@
 CGFloat headerHeight = 67.5f;
 
 @interface SFCardStackWrapperView()
+{
+    UIColor *_titleColor;
+    UIButton *_doneButton;
+}
 
 @property (nonatomic, strong) CALayer *separatorLayer;
 
@@ -19,6 +23,9 @@ CGFloat headerHeight = 67.5f;
 @end
 
 @implementation SFCardStackWrapperView
+
+@synthesize doneButton = _doneButton;
+@synthesize titleColor = _titleColor;
 
 + (void)setHeaderHeight:(CGFloat)height
 {
@@ -49,6 +56,9 @@ CGFloat headerHeight = 67.5f;
         self.tintColor = [UIColor whiteColor];
 
         self.viewController = viewController;
+
+        _titleColor = nil;
+        _doneButton = nil;
 
         self.layer.cornerRadius = 7.5f;
         self.layer.shadowRadius = 5.0f;
@@ -106,6 +116,7 @@ CGFloat headerHeight = 67.5f;
     {
         _titleLabel = [UILabel new];
         _titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:17.0f];
+        _titleLabel.textColor = self.titleColor;
 
         [self addSubview:_titleLabel];
     }
@@ -169,6 +180,22 @@ CGFloat headerHeight = 67.5f;
     self.backgroundColor = _tintColor;
 }
 
+- (void)setTitleColor:(UIColor *)titleColor
+{
+    _titleColor = titleColor;
+
+    if (_titleLabel)
+        self.titleLabel.textColor = _titleColor;
+}
+
+- (UIColor *)titleColor
+{
+    if (!_titleColor)
+        _titleColor = [UIColor blackColor];
+
+    return _titleColor;
+}
+
 - (void)setDismissHandler:(void (^)())dismissHandler
 {
     if (dismissHandler)
@@ -190,6 +217,5 @@ CGFloat headerHeight = 67.5f;
 
     _viewController = nil;
 }
-
 
 @end
