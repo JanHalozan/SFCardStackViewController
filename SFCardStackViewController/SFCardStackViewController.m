@@ -9,6 +9,10 @@
 #import "SFCardStackViewController.h"
 
 #import "SFCardStackWrapperView.h"
+#import "UIImage+ImageEffects.h"
+
+#define kCardStackWindowTag 101
+#define kCardStackWindowLayerName @"cardStackWindow"
 
 @interface SFCardStackViewController()
 {
@@ -37,6 +41,21 @@
 
 @synthesize backgroundColor = _backgroundColor;
 
++ (BOOL)isCardStackPresented
+{
+    UIWindow *window = UIApplication.sharedApplication.keyWindow;
+
+    return window.tag == kCardStackWindowTag && [window.layer.name isEqualToString:kCardStackWindowLayerName];
+}
+
++ (instancetype)presentedCardStackViewController
+{
+    if (![self isCardStackPresented])
+        return nil;
+
+    return (SFCardStackViewController *)UIApplication.sharedApplication.keyWindow.rootViewController;
+}
+
 - (instancetype)init
 {
     NSAssert(NO, @"Use the designated initializer 'initWithRootViewController:'");
@@ -54,6 +73,7 @@
     self = [super initWithNibName:nil bundle:nil];
     if (self)
     {
+        self.showsHeaderOnRootViewController = YES;
         self.previousKeyWindow = [[UIApplication sharedApplication] keyWindow];
         self.rootViewController = rootViewController;
     }
@@ -70,25 +90,38 @@
 
 - (void)present
 {
-    [self.window makeKeyAndVisible];
-
-    [self pushViewController:self.rootViewController animated:YES];
 //    self.rootViewController = nil;
+    [self.window makeKeyAndVisible];
+    [self pushViewController:self.rootViewController animated:YES];
 
     [UIView animateWithDuration:0.25f animations:^{
         self.view.backgroundColor = self.backgroundColor;
     }];
+
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 - (void)dismiss
+{
+    [self dismissAnimated:YES];
+}
+
+- (void)dismissAnimated:(BOOL)animated
 {
     __weak typeof(self) weakSelf = self;
 
     void (^finishBlock)() = ^{
         [weakSelf.animator removeAllBehaviors];
         [weakSelf.previousKeyWindow makeKeyAndVisible];
+        weakSelf.window.rootViewController = nil;
         weakSelf.window = nil;
     };
+
+    if (!animated)
+    {
+        finishBlock();
+        return;
+    }
 
     if (self.wrapperViews.count > 0)
     {
@@ -118,27 +151,41 @@
         return;
     }
 
-    [viewController willMoveToParentViewController:self];
-    [self addChildViewController:viewController];
-    __weak typeof(self) weakSelf = self;
     const CGRect frame = animated ? CGRectOffset(self.cardFrame, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) * 0.75f) : self.cardFrame;
-    SFCardStackWrapperView *wrapper = [[SFCardStackWrapperView alloc] initWithFrame:frame viewController:viewController];
-    wrapper.layer.shadowPath = [[UIBezierPath bezierPathWithRoundedRect:wrapper.bounds cornerRadius:5.0f] CGPath];
+    SFCardStackWrapperView *wrapper = [[SFCardStackWrapperView alloc] initWithFrame:frame viewController:viewController showsHeader:self.showsHeaderOnRootViewController];
+
+    __weak typeof(self) weakSelf = self;
     wrapper.dismissHandler = ^{
         [weakSelf popViewController];
     };
 
-    [self.view addSubview:wrapper];
+    [self pushCardStackWrapperView:wrapper animated:animated];
+}
+
+- (void)pushCardStackWrapperView:(SFCardStackWrapperView *)view animated:(BOOL)animated
+{
+    if (self.animator.behaviors.count > 0)
+    {
+        NSLog(@"Unable to push a view controller while a presentation is already in progress.");
+        return;
+    }
+
+    view.layer.shadowPath = [[UIBezierPath bezierPathWithRoundedRect:view.bounds cornerRadius:5.0f] CGPath];
+
+    [view.viewController willMoveToParentViewController:self];
+    [self addChildViewController:view.viewController];
+
+    [self.view addSubview:view];
 
     [self.animator removeAllBehaviors];
 
     if (animated)
     {
         const CGPoint snapPoint = CGPointMake(CGRectGetMidX(self.cardFrame), CGRectGetMidY(self.cardFrame));
-        UISnapBehavior *behaviour = [[UISnapBehavior alloc] initWithItem:wrapper snapToPoint:snapPoint];
+        UISnapBehavior *behaviour = [[UISnapBehavior alloc] initWithItem:view snapToPoint:snapPoint];
         behaviour.damping = 1.0f;
         behaviour.action = ^{
-            if (CGPointEqualToPoint(wrapper.center, snapPoint))
+            if (CGPointEqualToPoint(view.center, snapPoint))
             {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.animator removeAllBehaviors];
@@ -148,7 +195,7 @@
 
         [self.animator addBehavior:behaviour];
 
-        UIDynamicItemBehavior *resistance = [[UIDynamicItemBehavior alloc] initWithItems:@[wrapper]];
+        UIDynamicItemBehavior *resistance = [[UIDynamicItemBehavior alloc] initWithItems:@[view]];
         resistance.resistance = 50.0f;
 
         [behaviour addChildBehavior:resistance];
@@ -187,9 +234,8 @@
         ++i;
     }
 
-    [self.wrapperViews addObject:wrapper];
-
-    [viewController didMoveToParentViewController:self];
+    [self.wrapperViews addObject:view];
+    [view.viewController didMoveToParentViewController:self];
 }
 
 - (void)popViewControllerWithVelocity:(CGPoint)velocity andMagnitude:(CGFloat)magnitude angularVelocity:(CGFloat)angularVelocity
@@ -203,7 +249,7 @@
     void (^finishBlock)() = ^{
         if (weakSelf.wrapperViews.count - 1 == 0)
         {
-            [UIView animateWithDuration:0.1f delay:0.0f options:UIViewAnimationOptionCurveEaseOut animations:^{
+            [UIView animateWithDuration:0.25f delay:0.0f options:UIViewAnimationOptionCurveEaseOut animations:^{
                 weakSelf.view.backgroundColor = [UIColor clearColor];
             } completion:nil];
         }
@@ -309,7 +355,7 @@
         {
             SFCardStackWrapperView *wrapper = [self.wrapperViews lastObject];
 
-            if ([self.view hitTest:location withEvent:nil] != wrapper)
+            if ([self.view hitTest:location withEvent:nil] != wrapper && self.allowsPanningOnlyOnBezel)
             {
                 sender.enabled = NO;
                 sender.enabled = YES;
@@ -404,7 +450,7 @@
 
 - (BOOL)prefersStatusBarHidden
 {
-    return YES;
+    return NO;
 }
 
 - (BOOL)shouldAutomaticallyForwardRotationMethods
@@ -417,7 +463,7 @@
     return NO;
 }
 
-- (NSUInteger)supportedInterfaceOrientations
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskPortrait;
 }
@@ -430,8 +476,9 @@
     {
         const CGRect frame = [[UIScreen mainScreen] bounds];
         _window = [[UIWindow alloc] initWithFrame:frame];
-        _window.windowLevel = self.previousKeyWindow.windowLevel + 1;
         _window.rootViewController = self;
+        _window.tag = kCardStackWindowTag;
+        _window.layer.name = kCardStackWindowLayerName;
     }
 
     return _window;
@@ -442,9 +489,9 @@
     if (CGRectIsEmpty(_cardFrame))
     {
         const CGRect screenBounds = [[UIScreen mainScreen] bounds];
-        _cardFrame = CGRectInset(screenBounds, 13.0f, 0.0f);
-        _cardFrame.origin.y = 30.0f;
-        _cardFrame.size.height = CGRectGetHeight(screenBounds) - 70.0f;
+        _cardFrame = CGRectInset(screenBounds, 9.0f, 0.0f);
+        _cardFrame.origin.y = 31.0f;
+        _cardFrame.size.height = CGRectGetHeight(screenBounds) - 91.0f;
     }
 
     return _cardFrame;
@@ -453,7 +500,7 @@
 - (UIColor *)backgroundColor
 {
     if (!_backgroundColor)
-        _backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.4f];
+        _backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.85f];
 
     return _backgroundColor;
 }
@@ -476,6 +523,11 @@
         _wrapperViews = [NSMutableArray array];
 
     return _wrapperViews;
+}
+
+- (void)dealloc
+{
+    NSLog(@"SFCardStackViewController deallocating");
 }
 
 @end
