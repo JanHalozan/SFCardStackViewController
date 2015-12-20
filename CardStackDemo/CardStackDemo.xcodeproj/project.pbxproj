@@ -269,6 +269,8 @@
 		42B7A30D1B810297001D0280 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0720;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = JanHalozan;
 				TargetAttributes = {
@@ -520,6 +522,7 @@
 				42B7A3361B810297001D0280 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		42B7A3371B810297001D0280 /* Build configuration list for PBXNativeTarget "CardStackDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -528,6 +531,7 @@
 				42B7A3391B810297001D0280 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

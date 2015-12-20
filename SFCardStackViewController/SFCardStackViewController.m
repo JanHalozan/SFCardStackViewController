@@ -9,7 +9,6 @@
 #import "SFCardStackViewController.h"
 
 #import "SFCardStackWrapperView.h"
-#import "UIImage+ImageEffects.h"
 
 #define kCardStackWindowTag 101
 #define kCardStackWindowLayerName @"cardStackWindow"

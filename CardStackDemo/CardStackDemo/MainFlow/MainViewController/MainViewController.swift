@@ -12,9 +12,10 @@ final class MainViewController: UIViewController {
     @IBAction func notificationsTapped(sender: UIButton) {
         CardViewController.viewControllerNumber = 0
         
-        let viewController = CardViewController()
-        let cardStackViewController = SFCardStackViewController(rootViewController: viewController)
-        cardStackViewController.present()
+        let childViewController = CardViewController()
+        let viewController = SFCardStackViewController(rootViewController: childViewController)
+        
+        viewController.present()
     }
     
     override func prefersStatusBarHidden() -> Bool {
