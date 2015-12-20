@@ -14,15 +14,18 @@
 {
     if ([self.parentViewController isKindOfClass:SFCardStackViewController.class])
         return (SFCardStackViewController *)self.parentViewController;
-    
+
     return nil;
 }
 
 - (SFCardStackWrapperView *)cardStackWrapperView
 {
+    if ([self.view.superview isKindOfClass:SFCardStackWrapperView.class])
+        return (SFCardStackWrapperView *)self.view.superview;
+    
     if ([self.view.superview.superview isKindOfClass:SFCardStackWrapperView.class])
         return (SFCardStackWrapperView *)self.view.superview.superview;
-    
+
     return nil;
 }
 
