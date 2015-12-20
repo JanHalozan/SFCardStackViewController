@@ -8,23 +8,27 @@
 
 #import "SFCardStackWrapperView.h"
 
-CGFloat headerHeight = 67.5f;
+CGFloat headerHeight = 75.0f;
 
 @interface SFCardStackWrapperView()
 {
+    UILabel *_titleLabel;
+    UILabel *_subtitleLabel;
+    UIImageView *_imageView;
+
     UIColor *_titleColor;
-    UIButton *_doneButton;
 }
 
 @property (nonatomic, strong) CALayer *separatorLayer;
-
-- (void)doneTapped:(UIButton *)sender;
 
 @end
 
 @implementation SFCardStackWrapperView
 
-@synthesize doneButton = _doneButton;
+@synthesize titleLabel = _titleLabel;
+@synthesize subtitleLabel = _subtitleLabel;
+@synthesize imageView = _imageView;
+
 @synthesize titleColor = _titleColor;
 
 + (void)setHeaderHeight:(CGFloat)height
@@ -49,29 +53,40 @@ CGFloat headerHeight = 67.5f;
 
 - (instancetype)initWithFrame:(CGRect)frame viewController:(UIViewController *)viewController
 {
-    self = [super initWithFrame:frame];
-    if (self)
-    {
-        self.backgroundColor = [UIColor whiteColor];
-        self.tintColor = [UIColor whiteColor];
+    return [self initWithFrame:frame viewController:viewController showsHeader:YES];
+}
 
-        self.viewController = viewController;
+- (instancetype)initWithFrame:(CGRect)frame viewController:(UIViewController *)viewController showsHeader:(BOOL)header
+{
+    if (!(self = [super initWithFrame:frame]))
+        return nil;
 
-        _titleColor = nil;
-        _doneButton = nil;
+    self.backgroundColor = [UIColor whiteColor];
+    self.tintColor = [UIColor whiteColor];
 
-        self.layer.cornerRadius = 7.5f;
-        self.layer.shadowRadius = 5.0f;
-        self.layer.shadowColor = [[UIColor blackColor] CGColor];
-        self.layer.shadowOffset = CGSizeMake(1.5f, 1.5f);
-        self.layer.shadowOpacity = 0.25f;
+    self.showsHeader = header;
+    self.showsTopSeparator = YES;
+    self.viewController = viewController;
 
+    _titleLabel = nil;
+    _subtitleLabel = nil;
+    _imageView = nil;
+
+    _titleColor = nil;
+
+    self.layer.cornerRadius = 12.5f;
+    self.layer.shadowRadius = 5.0f;
+    self.layer.shadowColor = [[UIColor blackColor] CGColor];
+    self.layer.shadowOffset = CGSizeMake(1.5f, 1.5f);
+    self.layer.shadowOpacity = 0.25f;
+
+    if (self.showsHeader)
         [self.layer addSublayer:self.separatorLayer];
-    }
+
     return self;
 }
 
-- (void)doneTapped:(UIButton *)sender
+- (void)dismiss:(id)sender
 {
     if (self.dismissHandler)
         self.dismissHandler();
@@ -83,15 +98,30 @@ CGFloat headerHeight = 67.5f;
 
     self.separatorLayer.frame = CGRectMake(0.0f, headerHeight - 0.5f, CGRectGetWidth(self.bounds), 0.5f);
 
-    if (self->_titleLabel)
+    CGFloat originX = 15.5f;
+    CGFloat midY = headerHeight * 0.5f;
+
+    if (self->_imageView)
     {
-        self.titleLabel.frame = CGRectMake(18.0f, 5.0f, CGRectGetWidth(self.bounds) * 0.66f - 18.0f, headerHeight - 5.0f);
+        _imageView.frame = CGRectMake(originX, headerHeight * 0.5f - 16.0f, 39.0f, 39.0f);
+        _imageView.layer.cornerRadius = CGRectGetWidth(_imageView.frame) * 0.5f;
+        originX += 39.0f + 11.25f;
     }
 
-    if (self->_doneButton)
+    if (self->_subtitleLabel)
     {
-        const CGFloat width = CGRectGetWidth(self.bounds) * 0.33f - 18.0f;
-        self.doneButton.frame = CGRectMake(CGRectGetWidth(self.bounds) * 0.66f, 5.0f, width, headerHeight - 5.0f);
+        self.subtitleLabel.frame = CGRectMake(originX, midY + 7.0f, CGRectGetWidth(self.bounds) * 0.66f - 18.0f, self.subtitleLabel.font.lineHeight);
+        midY -= 7.25f;
+    }
+
+    if (self->_titleLabel)
+    {
+        self.titleLabel.frame = CGRectMake(originX, midY - self.titleLabel.font.lineHeight * 0.5f - 0.5f, CGRectGetWidth(self.bounds) * 0.66f - 18.0f, self.titleLabel.font.lineHeight);
+    }
+
+    if (self->_accessoryView)
+    {
+        self.accessoryView.frame = CGRectMake(CGRectGetWidth(self.bounds) - 48.0f, headerHeight * 0.5f - 23.5f, 50.0f, 50.0f);
     }
 }
 
@@ -124,21 +154,31 @@ CGFloat headerHeight = 67.5f;
     return _titleLabel;
 }
 
-- (UIButton *)doneButton
+- (UILabel *)subtitleLabel
 {
-    if (!_doneButton)
+    if (!_subtitleLabel)
     {
-        _doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _doneButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17.5f];
-        _doneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        [_doneButton setTitleColor:[UIColor colorWithRed:0.0f green:0.66f blue:0.91f alpha:1.0f] forState:UIControlStateNormal];
-        [_doneButton setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
-        [_doneButton addTarget:self action:@selector(doneTapped:) forControlEvents:UIControlEventTouchUpInside];
+        _subtitleLabel = [UILabel new];
+        _subtitleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:14.0f];
+        _subtitleLabel.textColor = [UIColor colorWithWhite:0.65f alpha:1.0f];
 
-        [self addSubview:_doneButton];
+        [self addSubview:_subtitleLabel];
     }
 
-    return _doneButton;
+    return _subtitleLabel;
+}
+
+- (UIImageView *)imageView
+{
+    if (!_imageView)
+    {
+        _imageView = [UIImageView new];
+        _imageView.layer.masksToBounds = YES;
+
+        [self addSubview:_imageView];
+    }
+
+    return _imageView;
 }
 
 - (void)setViewController:(UIViewController *)viewController
@@ -152,12 +192,20 @@ CGFloat headerHeight = 67.5f;
 
     [_viewController addObserver:self forKeyPath:@"title" options:(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew) context:NULL];
 
-    UIView *wrapper = [[UIView alloc] initWithFrame:CGRectMake(0.0f, headerHeight - 7.5f, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) - headerHeight + 7.5f)];
-    wrapper.layer.cornerRadius = 7.5f;
-    wrapper.layer.masksToBounds = YES;
-    _viewController.view.frame = CGRectMake(0.0f, 7.5f, CGRectGetWidth(wrapper.bounds), CGRectGetHeight(wrapper.bounds) - 7.5f);
-    [wrapper addSubview:_viewController.view];
-    [self addSubview:wrapper];
+    if (self.showsHeader)
+    {
+        UIView *wrapper = [[UIView alloc] initWithFrame:CGRectMake(0.0f, headerHeight - 12.5f, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) - headerHeight + 12.5f)];
+        wrapper.layer.cornerRadius = 12.5f;
+        wrapper.layer.masksToBounds = YES;
+        _viewController.view.frame = CGRectMake(0.0f, 12.5f, CGRectGetWidth(wrapper.bounds), CGRectGetHeight(wrapper.bounds) - 12.5f);
+        [wrapper addSubview:_viewController.view];
+        [self addSubview:wrapper];
+    }
+    else
+    {
+        _viewController.view.frame = self.bounds;
+        [self addSubview:_viewController.view];
+    }
 }
 
 - (CALayer *)separatorLayer
@@ -166,9 +214,20 @@ CGFloat headerHeight = 67.5f;
     {
         _separatorLayer = [CALayer layer];
         _separatorLayer.backgroundColor = [[UIColor colorWithWhite:0.0f alpha:0.2f] CGColor];
+
+        if (!self.showsTopSeparator)
+            _separatorLayer.hidden = YES;
     }
 
     return _separatorLayer;
+}
+
+- (void)setShowsTopSeparator:(BOOL)showsTopSeparator
+{
+    _showsTopSeparator = showsTopSeparator;
+
+    if (_separatorLayer)
+        self.separatorLayer.hidden = !_showsTopSeparator;
 }
 
 - (void)setTintColor:(UIColor *)tintColor
@@ -196,15 +255,15 @@ CGFloat headerHeight = 67.5f;
     return _titleColor;
 }
 
-- (void)setDismissHandler:(void (^)())dismissHandler
+- (void)setAccessoryView:(UIView *)accessoryView
 {
-    if (dismissHandler)
-    {
-        _dismissHandler = dismissHandler;
+    if (_accessoryView)
+        [_accessoryView removeFromSuperview];
 
-        if (!_doneButton)
-            [self.doneButton setTitle:@"Done" forState:UIControlStateNormal];
-    }
+    _accessoryView = accessoryView;
+
+    if (_accessoryView)
+        [self addSubview:_accessoryView];
 }
 
 - (void)dealloc

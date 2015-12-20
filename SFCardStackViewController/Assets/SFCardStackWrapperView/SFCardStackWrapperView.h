@@ -10,18 +10,28 @@
 
 @interface SFCardStackWrapperView : UIView
 
-@property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, strong, readonly) UIButton *doneButton;
+@property (nonatomic, assign) BOOL showsHeader;
+@property (nonatomic, assign) BOOL showsTopSeparator;
+
+@property (nonatomic, strong, readonly) UILabel *titleLabel;
+@property (nonatomic, strong, readonly) UILabel *subtitleLabel;
+@property (nonatomic, strong, readonly) UIImageView *imageView;
+
+@property (nonatomic, strong) UIView *accessoryView;
+
 @property (nonatomic, strong) UIViewController *viewController;
 
 @property (nonatomic, copy) void (^dismissHandler)();
+
+@property (nonatomic, strong) UIColor *tintColor;
+@property (nonatomic, strong) UIColor *titleColor;
 
 + (CGFloat)headerHeight;
 + (void)setHeaderHeight:(CGFloat)height;
 
 - (instancetype)initWithFrame:(CGRect)frame viewController:(UIViewController *)viewController;
+- (instancetype)initWithFrame:(CGRect)frame viewController:(UIViewController *)viewController showsHeader:(BOOL)header;
 
-@property (nonatomic, strong) UIColor *tintColor;
-@property (nonatomic, strong) UIColor *titleColor;
+- (void)dismiss:(id)sender;
 
 @end
